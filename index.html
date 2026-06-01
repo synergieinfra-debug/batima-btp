@@ -47,7 +47,8 @@
       overflow-y:auto;
       overflow-x:hidden;
       -webkit-overflow-scrolling:touch;
-      /* Key: this shrinks when keyboard opens because parent uses dvh */
+      overscroll-behavior:contain;
+      scroll-behavior:auto;
     }
     
     /* Bottom nav - stays at bottom */
@@ -108,7 +109,7 @@ try {
     window.SUPABASE_DB = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   }
 } catch (e) { console.warn("Supabase:", e.message); }
-(function(){function s(){var h=window.visualViewport?window.visualViewport.height:window.innerHeight,r=document.getElementById('chantier-root');if(r)r.style.height=h+'px';}if(window.visualViewport){window.visualViewport.addEventListener('resize',s);window.visualViewport.addEventListener('scroll',s);}window.addEventListener('resize',s);s();})();
+(function(){var t=null,lastH=0;function s(force){var h=window.visualViewport?window.visualViewport.height:window.innerHeight,r=document.getElementById('chantier-root');if(!r)return;var a=document.activeElement,inputOpen=a&&(a.tagName==='INPUT'||a.tagName==='TEXTAREA'||a.tagName==='SELECT');if(inputOpen&&!force){return;}if(Math.abs(h-lastH)<2)return;lastH=h;r.style.height=h+'px';}function sd(){if(t)clearTimeout(t);t=setTimeout(function(){s(false);},150);}if(window.visualViewport){window.visualViewport.addEventListener('resize',sd);}window.addEventListener('resize',sd);document.addEventListener('focusout',function(e){if(e.target&&(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'||e.target.tagName==='SELECT')){setTimeout(function(){s(true);},250);}});s(true);})();
 var useState=React.useState,useEffect=React.useEffect,useRef=React.useRef,useCallback=React.useCallback,useMemo=React.useMemo;
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
